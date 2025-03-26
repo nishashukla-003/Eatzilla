@@ -1,0 +1,69 @@
+<head>
+    <title>Login</title>
+</head>
+<style>
+    input {
+        -webkit-box-shadow: 0 0 0px 1000px #83C5BE inset;
+        border: none;
+        border-bottom: 2px solid black;
+        outline: none;
+        font-size: 16px;
+        padding: 5px;
+        width: 250px;
+        transition: border-bottom 0.3s;
+    }
+    
+   .bt { border: 2px solid black;
+        background-color: #4CAF50;
+        width: 100%;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+
+      }
+    
+    
+    input:focus {
+        border-bottom: 2px solid blue; 
+    }
+    .div2 {
+       
+        border-radius: 50px;
+        background-color:  #83C5BE;
+        {% comment %} background: linear-gradient(130deg, #83C5BE, #FFDDD2); {% endcomment %}
+        padding: 20px;
+        margin-left: 400px;
+        margin-right: 400px;
+        margin-top: 30px;
+        margin-bottom: 100px;
+        display: flex;
+        justify-content: center;  
+        align-items: center;      
+        height: 50vh;
+        
+      }
+    form{
+        width:50%;
+        
+
+    }
+</style>
+<body>
+ 
+<div class = div2>
+    <form method="post">
+        <h1 style = text-align:center;>Login</h2>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="Submit" class = "bt">Login</button>
+       {% comment %} <p style = text-align:center;> Forgot <a href = "{% url "reset" %}">Password?</a></p> {% endcomment %}
+       <p style = text-align:center;>Don't have an account ? <a href = "{% url "signup" %}">Sign Up</a></p>
+       
+    </form>
+</div>
+</body>
+</html>
+
