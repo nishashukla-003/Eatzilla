@@ -1,0 +1,73 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category create</title>
+</head>
+<body>
+    {% for i in object_list %}
+    <h1>Name - {{i.name }}</h2>
+    <p>Description - {{i.description }}</p>
+    <p>Price - {{i.price }}</p>
+    <a href = "{%    url 'food_details' i.id %}"><img src = "{{i.image.url}}" alt = "image" with= 200 height= 200></a>
+    {% endfor %}
+</body>
+</html> {% endcomment %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food List</title>
+    <style>
+        .food-card {
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+        }
+        .food-card:hover {
+            transform: scale(1.05);
+        }
+        .food-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .food-card .card-body {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Our Special Food Items</h2>
+        <div class="row">
+            {% for i in object_list %}
+            <div class="col-md-4 mb-4">
+                <div class="card food-card">
+                    <a href="{% url 'food_details' i.id %}">
+                        <img src="{{ i.image.url }}" alt="{{ i.name }}" class="card-img-top">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.name }}</h5>
+                        {% comment %} <p class="card-text text-muted">{{ i.description|truncatewords:10 }}</p> {% endcomment %}
+                        <p class="font-weight-bold text-danger">₹ {{ i.price }}</p>
+                        <a href="{% url 'food_details' i.id %}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p>No food items available.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    
+</body>
+</html>

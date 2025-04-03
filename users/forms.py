@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 
 
-#create Signup field
+#create Signup Form
 class CustomForm(UserCreationForm):
     username = forms.CharField(
         max_length=10,
@@ -41,7 +41,9 @@ class CustomForm(UserCreationForm):
             "is_superuser",           
              )
                
-#Create login 
+#Create login Form
 class CustomLoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}),)
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+        

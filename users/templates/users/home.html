@@ -1,4 +1,7 @@
-{% extends "logout.html" %}
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
 
 {% block content %}
     <h2>You have been logged out.</h2>

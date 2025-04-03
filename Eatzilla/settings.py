@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'category',
 ]
 
 MIDDLEWARE = [
@@ -117,6 +119,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = str(BASE_DIR / "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -125,6 +133,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.CustomUser'
 
 
-LOGIN_REDIRECT_URL = "home"  # Redirect users after login
+LOGIN_REDIRECT_URL = "homepage"  # Redirect users after login
 LOGOUT_REDIRECT_URL = "login"  # Redirect users after logout
-LOGIN_URL = "login"  # Redirects unauthorized users to login page
+# LOGIN_URL = "login"  # Redirects unauthorized users to login page

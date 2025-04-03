@@ -1,0 +1,169 @@
+############################# Header_foote#########################
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link href="headers.css" rel="stylesheet">
+  <style>
+    .navbar-default {
+      background: linear-gradient(to bottom, #FF6B35, #D72638);;
+      width:100%;
+      position: fixed;
+      top: 0;
+      height: 1px; 
+      border: 0px;
+    }
+    .navbar-nav{
+      margin-left: 31%;
+    }
+    .navbar-default .navbar-nav>li>a {
+      color: white;}
+
+    footer {
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+      background: linear-gradient(to bottom, #FF6B35, #D72638);
+      {% comment %} background: linear-gradient(to bottom, #007BFF, #FF1493); {% endcomment %}
+      {% comment %} background: linear-gradient(to bottom, #3A7D44, #F7D716); {% endcomment %}
+      color: white;
+      padding: 20px 0;
+  }
+
+  footer a {
+      text-decoration: none;
+      color: #ffc107;
+  }
+  
+  footer a:hover {
+      text-decoration: underline;
+  }
+  
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-default" >
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/" style= color:white;>Eatzilla</a>
+      </div>
+      <ul class="nav navbar-nav">
+        {% comment %} <li><a href="{% url 'food_list' %}">Home</a></li> {% endcomment %}
+        <li><a href="#">Food Ordering </a></li>
+        <li><a href="#">Pricing</a></li>
+        <li><a href="#">Cart</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+       
+       {% comment %} <li style="margin-left: 10px;"> <a href="{% url 'login' %}"><button type="button" class="btn btn-primary navbar-btn" >login</button></a></li>
+
+        <li style="margin-left: 10px;"> <a href="{% url 'signup' %}"><button type="button" class="btn btn-primary navbar-btn" >Sign-up</button></a></li> {% endcomment %}
+        <li style="margin-top: -15px;"> <a href="{% url 'logout' %}"><button type="button" class="btn btn-primary navbar-btn" >Logout</button></a></li>
+      </ul>
+    </div>
+  </nav>
+<footer class="bg-dark text-light text-center py-3">
+  <div class="container">
+      <p>&copy; 2025 Eatzilla. All Rights Reserved.</p>
+      <ul class="list-inline">
+          <li class="list-inline-item"><a href="#" class="text-light">Privacy Policy</a></li>
+          <li class="list-inline-item"><a href="#" class="text-light">Terms of Service</a></li>
+          <li class="list-inline-item"><a href="#" class="text-light">Contact Us</a></li>
+      </ul>
+  </div>
+</footer>
+</body>
+</html>
+
+
+
+
+
+
+################################### Food List ##################################
+
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .food-card {
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+        }
+        .food-card:hover {
+            transform: scale(1.05);
+        }
+        .food-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .food-card .card-body {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Our Special Food Items</h2>
+        <div class="row">
+            {% for i in object_list %}
+            <div class="col-md-4 mb-4">
+                <div class="card food-card">
+                    <a href="{% url 'food_details' i.id %}">
+                        <img src="{{ i.image.url }}" alt="{{ i.name }}" class="card-img-top">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ i.name }}</h5>
+                        <p class="card-text text-muted">{{ i.description|truncatewords:10 }}</p>
+                        <p class="font-weight-bold text-danger">₹ {{ i.price }}</p>
+                        <a href="{% url 'food_details' i.id %}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p>No food items available.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+####################  food_details #####################
+
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Food Details</title>
+    </head>
+    <body>
+        <a href="{% url 'food_list'%}">Back</a>
+        <h1>Food Name:- {{object.name}}</h1>
+        <p><b>Description:-</b>{{object.description}}</p>
+        <img src="{{object.image.url}}" alt="{{ object.name }}" width= 200 height= 200>
+        <p><b>price:-</b> {{object.price}}</p>
+        <p><b>is_available:-</b>{{object.is_available}}</p>
+        <a href="{% url 'food_update' object.id %}" class="btn btn-primary">Update</a>
+        <a href="{% url 'food_delete' object.id %}" class="btn btn-primary">Delete</a>
+    </body>
+    </html> 

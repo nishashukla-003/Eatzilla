@@ -8,7 +8,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
-# Create your views here.
+# Create CustomUser views here.
 
 class CustomUserView(CreateView):
     model = CustomUser
@@ -19,10 +19,11 @@ class CustomUserView(CreateView):
 class UserLoginView(LoginView):
     form_class = CustomLoginForm
     template_name = "users/login.html"
+    success_url = reverse_lazy("homepage")
     
 class UserLogoutView(LogoutView):
-    next_page = reverse_lazy("login")  # Redirect to login after logout
-       
-class HomeView(LoginRequiredMixin, TemplateView):
-    template_name = "users/home.html"
-    login_url = "users/login.html"  # Redirects unauthorized users to login page
+    next_page = reverse_lazy("login")  # Redirect to login after logout         
+class LogoutPageView( TemplateView):
+    template_name = "users/logout.html"
+   
+    
