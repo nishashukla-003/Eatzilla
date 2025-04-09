@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Cart</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">✏️ Update Cart Item</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Quantity</label>
+                {{ form.quantity }}
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a href="{% url 'list_cart' %}" class="btn btn-secondary">Back</a>
+        </form>
+    </div>
+</body>
+</html>

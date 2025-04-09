@@ -1,0 +1,22 @@
+<h2>Welcome, {{ request.user.username }}</h2>
+
+{% if profile.profile_picture %}
+    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" width="150">
+{% else %}
+    <p>No Profile Picture</p>
+{% endif %}
+
+{% comment %} <p><strong>Email:</strong> {{ request.user.email }}</p>
+<p><strong>Phone:</strong> {{ request.user.phone }}</p>
+<p><strong>Bio:</strong> {{ profile.bio }}</p>
+<p><strong>Address:</strong> {{ profile.address }}</p> {% endcomment %}
+
+<p><strong>username:</strong> {{ request.user.username }}</p>
+<p><strong>First Name:</strong> {{ request.user.first_name }}</p>
+<p><strong>Last Name:</strong> {{ request.user.last_name }}</p>
+<p><strong>Location:</strong> {{ profile.address  }}</p>
+<p><strong>Email address:</strong> {{ request.user.email }}</p>
+<p><strong>Phone:</strong> {{ request.user.phone }}</p>
+<p><strong>Birthday:</strong> {{ profile.birthday }}</p>
+
+<a href="{% url 'profile' %}" class="btn btn-primary">Edit Profile</a>
