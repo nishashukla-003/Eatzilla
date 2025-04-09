@@ -8,7 +8,6 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('category', '0005_alter_food_price'),
         ('users', '0005_remove_profile_bio'),
     ]
 
