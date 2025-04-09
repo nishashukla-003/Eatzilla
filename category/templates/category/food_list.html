@@ -1,21 +1,3 @@
-{% comment %} <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category create</title>
-</head>
-<body>
-    {% for i in object_list %}
-    <h1>Name - {{i.name }}</h2>
-    <p>Description - {{i.description }}</p>
-    <p>Price - {{i.price }}</p>
-    <a href = "{%    url 'food_details' i.id %}"><img src = "{{i.image.url}}" alt = "image" with= 200 height= 200></a>
-    {% endfor %}
-</body>
-</html> {% endcomment %}
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,10 +17,13 @@
         .food-card img {
             width: 100%;
             height: 200px;
-            object-fit: cover;
+            object-fit: cover; 
         }
         .food-card .card-body {
             text-align: center;
+        }
+        .card {
+            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -57,6 +42,7 @@
                         {% comment %} <p class="card-text text-muted">{{ i.description|truncatewords:10 }}</p> {% endcomment %}
                         <p class="font-weight-bold text-danger">₹ {{ i.price }}</p>
                         <a href="{% url 'food_details' i.id %}" class="btn btn-primary">View Details</a>
+                        <a href="{% url 'food_details' i.id %}" class="btn btn-small">Add</a>
                     </div>
                 </div>
             </div>

@@ -8,14 +8,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="sweetalert2.all.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f8f9fa;
-            padding: 20px;
-        }
-        
+    <style>    
         .details-container {
             max-width: 600px;
             margin: auto;
@@ -87,12 +83,34 @@
             background: #dc3545;
             color: white;
         }
+
+        .cart-button {
+            display: inline-block;
+            padding: 10px 10px;
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 30px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease, background 0.3s ease;
+        }
+        
+        .cart-button:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(to right, #ff4b2b, #ff416c);
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
 
-    <div class="details-container">
-        <a href="{% url 'food_list' %}" class="btn btn-back">⬅ Back to Menu</a>
+{% extends "category/header_footer.html" %}
+{% block content %}
+
+    <div class="details-container" style= "margin-bottom: 107px;">
+        <a href="{% url 'homepage' %}" class="btn btn-back">⬅ Back to Menu</a>
 
         <h1>{{ object.name }}</h1>
 
@@ -104,15 +122,31 @@
         <p class="availability {% if object.is_available %}available{% else %}not-available{% endif %}">
             {% if object.is_available %}✅ Available{% else %}❌ Not Available{% endif %}
         </p>
+        <button onclick="myFunction({{object.id}})">Click me</button>
+
+        <a href="{% url "create_cart" %}" class="cart-button">🛒 Add to Cart</a>
 
         <br>
-        {% if user.is_staff %}
-
-        <a href="{% url 'food_update' object.id %}" class="btn btn-update">✏ Update</a>
-        <a href="{% url 'food_delete' object.id %}" class="btn btn-delete">🗑 Delete</a>
-        {% endif %}
     </div>
+    <script src="sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script>
+        function myFunction(item_id) {
+            fetch("http://127.0.0.1:8004/users/add-to-cart/16/")
+                .then(function() {
+                    // handle the response
+                })
+
+            Swal.fire({
+                title: "Item added!",
+                text: "",
+                icon: "success"
+              });
+          }
+    </script>
+{% endblock %}
 </body>
+
 </html>
 

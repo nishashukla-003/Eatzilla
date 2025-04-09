@@ -1,5 +1,5 @@
 from django import forms
-from .models import CustomUser
+from .models import CustomUser, Profile, CartItem
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 
@@ -40,10 +40,29 @@ class CustomForm(UserCreationForm):
             "user_permissions",
             "is_superuser",           
              )
-               
+        
+#create profile form
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = fields = [
+            "profile_picture",
+            "address",
+            "birthday",
+            ]
+        
 #Create login Form
 class CustomLoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}),)
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
+#create CartItem form
+class CartItemForm(forms.ModelForm):
+    class Meta:
+        model = CartItem
+        fields = fields = [
+            'food_item', 
+            'quantity'
+          
+            ]
         
