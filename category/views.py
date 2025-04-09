@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -39,12 +40,14 @@ class FoodDelete(DeleteView):
     model = Food
     template_name = "category/food_delete.html"
     success_url = reverse_lazy('food_list')
-    
-    
-class Home(TemplateView):
-    template_name = "category/home_page.html"
 
+class Home(LoginRequiredMixin, TemplateView):
+    template_name = "category/home_page.html"
+    permission_classes = []
+    
+    
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
         context['object_list'] = Food.objects.all()
+        context['user'] = self.request.user
         return context
