@@ -1,6 +1,7 @@
 {% extends "category/header_footer.html" %}
-
 {% block content %}
+{% comment %} {{user}}
+{{user.is_staff}} {% endcomment %}
     {% comment %} <h2 style="text-align:center;">Welcome to Eatzilla!</h2> {% endcomment %}
     {% include "category/food_list.html" %}
     

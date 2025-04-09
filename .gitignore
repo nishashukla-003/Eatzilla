@@ -1,0 +1,54 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+*.env
+
+# Django stuff
+db.sqlite3
+db.sqlite3-journal
+/media/
+staticfiles/
+
+# Logs
+logs/
+*.log
+*.out
+*.err
+
+# Django migrations
+*/migrations/__pycache__/
+*/migrations/*.pyc
+
+# Secret key & environment variables
+.env
+config/settings/local.py
+config/settings/secrets.py
+
+# Pytest & testing related
+.coverage
+htmlcov/
+*.cover
+.cache
+nosetests.xml
+coverage.xml
+*.mo
+*.pot
+
+# MyPy type checking
+.mypy_cache/
+
+# IDE/editor files
+.vscode/
+.idea/
+*.sublime-workspace
+
+# Node & frontend stuff (if using React or Vue with Django)
+node_modules/
+npm-debug.log
+yarn.lock
+package-lock.json
