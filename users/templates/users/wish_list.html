@@ -1,0 +1,110 @@
+{% extends 'category/header_footer.html' %}
+
+{% block content %}
+<style>
+    .wishlist-container {
+        padding: 40px 20px;
+        background-color: #f8f9fa;
+    }
+    .wishlist-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #ff4757;
+        margin-bottom: 40px;
+    }
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease-in-out;
+        margin-bottom: 30px;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+    }
+    .card-img-top {
+        height: 200px;
+        object-fit: cover;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+    .btn-primary {
+        background-color: #1e90ff;
+        border: none;
+    }
+    .btn-primary:hover {
+        background-color: #0d6efd;
+    }
+    .btn-danger {
+        background-color: #e74c3c;
+        border: none;
+    }
+    .btn-danger:hover {
+        background-color: #c0392b;
+    }
+</style>
+
+<div class="wishlist-container container">
+    <h2 class="wishlist-title">❤️ My Wishlist</h2>
+
+    {% if wishlist_items %}
+        <div class="row">
+            {% for item in wishlist_items %}
+                <div class="col-md-4 mb-4">
+                    <div class="card" s>
+                        {% if item.food_item.image %}
+                            <img src="{{ item.food_item.image.url }}" class="card-img-top" alt="{{ item.food_item.name }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/300x200?text=No+Image" class="card-img-top" alt="No Image">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.food_item.name }}</h5>
+                            <p class="card-text text-muted">{{ item.food_item.description|truncatewords:15 }}</p>
+                            <p class="card-text font-weight-bold">₹{{ item.food_item.price }}</p>
+                            <div class="d-flex justify-content-between">
+                                <button class="btn-cart" onclick="AddToCart({{ item.food_item.id }})">🛒 Add to Cart</button>
+                                <a href="{% url 'remove_from_wishlist' item.food_item.id %}" class="btn btn-danger btn-sm">❌ Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center">
+            <h5 class="text-muted">Your wishlist is empty 😢</h5>
+            <p><a href="{% url 'food_list' %}" class="btn btn-outline-primary mt-3">Browse Food Items</a></p>
+        </div>
+    {% endif %}
+</div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    let cart = [];
+
+    function AddToCart(cartItemId) {
+        cart.push('item');
+        let items = cart.length;
+
+        fetch("http://127.0.0.1:8000/users/add-to-cart/" + cartItemId + "/")
+            .then(() => {
+                // Sweet Alert after item added
+                Swal.fire({
+                    title: "🎉 Added to Cart!",
+                    text: "Your food item is waiting in the cart!",
+                    icon: "success",
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            });
+
+        // Optional: Update cart count if you're showing it somewhere
+        const countElement = document.getElementById("cartitemcount");
+        if (countElement) {
+            countElement.textContent = items;
+        }
+    }
+</script>
+
+{% endblock %}

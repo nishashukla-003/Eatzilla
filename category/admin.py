@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Food, FoodTopping, ToppingsCustomization
+from .models import Category, Food, FoodTopping, ToppingsCustomization, ContactMessage
 
 # Register your models here.
 class CategoryAdmin(admin.ModelAdmin):
@@ -14,7 +14,11 @@ class FoodToppingAdmin(admin.ModelAdmin):
 class ToppingsCustomizationAdmin(admin.ModelAdmin):
     model = ToppingsCustomization
     
+class ContactMessageAdmin(admin.ModelAdmin):
+    model = ContactMessage
+    
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Food, FoodAdmin)
 admin.site.register( FoodTopping, FoodToppingAdmin)
 admin.site.register(ToppingsCustomization, ToppingsCustomizationAdmin)
+admin.site.register(ContactMessage)

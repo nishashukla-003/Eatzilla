@@ -1,0 +1,28 @@
+{% extends "category/header_footer.html" %}
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded-4 p-4 bg-white">
+                <h2 class="text-center text-success fw-bold mb-4">
+                    <i class="bi bi-pencil-square me-2"></i>Edit Address
+                </h2>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <!-- Address Section -->
+                    <div class="mb-4">
+                        <h5 class="fw-semibold mb-2">Delivery Address</h5>
+                        <div class="bg-light p-3 border-start border-4 border-success rounded-3">
+                            <p class="mb-0">{{ address.first_name }} {{ address.last_name }}</p>
+                            <p class="mb-0">{{ address.address }}</p>
+                            <p class="mb-0">{{ address.locality }}</p>
+                            <p class="mb-0">{{ address.email }}</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

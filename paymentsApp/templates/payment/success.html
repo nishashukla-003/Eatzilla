@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Successful</title>
+    <script>
+        setTimeout(function () {
+            window.location.href = "http://127.0.0.1:8000/category/home/";
+        }, 3000);  // 3 seconds
+    </script>
+</head>
+<body>
+    <h2>Payment Successful!</h2>
+    <p>Thank you for your payment of ₹{{ payment.amount }}</p>
+    <p>Transaction ID: {{ payment.transaction_id }}</p>
+    <p>You will be redirected shortly...</p>
+</body>
+</html>

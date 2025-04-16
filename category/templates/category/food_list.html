@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Food List</title>
     <style>
         .food-card {
@@ -26,34 +27,54 @@
             margin-bottom: 20px;
         }
     </style>
+    
 </head>
 <body>
-    <div class="container mt-5">
-        <h2 class="text-center mb-4">Our Special Food Items</h2>
-        <div class="row">
-            {% for i in object_list %}
-            <div class="col-md-4 mb-4">
-                <div class="card food-card">
-                    <a href="{% url 'food_details' i.id %}">
-                        <img src="{{ i.image.url }}" alt="{{ i.name }}" class="card-img-top">
-                    </a>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ i.name }}</h5>
-                        {% comment %} <p class="card-text text-muted">{{ i.description|truncatewords:10 }}</p> {% endcomment %}
-                        <p class="font-weight-bold text-danger">₹ {{ i.price }}</p>
-                        <a href="{% url 'food_details' i.id %}" class="btn btn-primary">View Details</a>
-                        <a href="{% url 'food_details' i.id %}" class="btn btn-small">Add</a>
-                    </div>
+        <div class="container mt-5">
+    <h2 class="text-center mb-4">🍽️ Our Special Food Items</h2>
+    <div class="row">
+        {% for i in object_list %}
+        <div class="col-md-4 mb-4">
+            <div class="card food-card">
+                <a href="{% url 'food_details' i.id %}">
+                    <img src="{{ i.image.url }}" alt="{{ i.name }}" class="card-img-top">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">{{ i.name }}</h5>
+                    <p class="font-weight-bold text-danger">₹ {{ i.price }}</p>
                 </div>
+                <div style = "padding-left:70px;">
+                <a href="{% url 'food_details' i.id %}" class="btn btn-primary">View Details</a>
+                <button href="" class="btn btn-success" onclick=AddtoCart({{ i.id }})>🛒 Add to Cart</button>
+                </div>
+                     
             </div>
-            {% empty %}
-            <div class="col-12 text-center">
-                <p>No food items available.</p>
-            </div>
-            {% endfor %}
         </div>
+        {% empty %}
+        <p>No food items available.</p>
+        {% endfor %}
     </div>
-
-    
+</div>
 </body>
+<script>
+    let cart = []
+    function AddtoCart(cartItemId){
+        cart.push('itemn')
+        items = cart.length
+        fetch("http://127.0.0.1:8000/users/add-to-cart/" + cartItemId + "/")
+        .then(function(){
+            Swal.fire({
+                title: "🎉 Added to Cart!",
+                text: "Your food item is waiting in the cart!",
+                icon: "success",
+                timer: 2000,
+                position: 'top',
+                showConfirmButton: false
+            });
+        })
+        console.log(cartItemId)
+        document.getElementById("cartitemcount").textContent = items 
+   }
+</script>
+
 </html>

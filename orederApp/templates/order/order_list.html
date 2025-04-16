@@ -1,0 +1,27 @@
+{% extends "category/header_footer.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>🧾 Place Order</h2>
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="address" class="form-label"><strong>Delivery Address</strong></label>
+            <textarea class="form-control" name="address" rows="3" required></textarea>
+        </div>
+
+        <p>Sub Total: ₹{{ sub_total }}</p>
+        <p>Discount: ₹{{ discount }}</p>
+        <p>Taxes: ₹{{ taxes }}</p>
+        <h5><strong>Grand Total: ₹{{ grand_total }}</strong></h5>
+
+        <hr>
+        <h6>Payment Method</h6>
+        <label><input type="radio" name="payment_method" value="COD" required> Cash on Delivery</label><br>
+        <label><input type="radio" name="payment_method" value="UPI"> UPI</label><br>
+        <label><input type="radio" name="payment_method" value="CARD"> Card</label><br><br>
+
+        <button type="submit" class="btn btn-success">Place Order</button>
+    </form>
+</div>
+{% endblock %}

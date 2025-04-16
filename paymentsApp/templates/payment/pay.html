@@ -1,0 +1,5 @@
+{% comment %} <h2>Pay with Stripe</h2>
+<form action="{% url 'create_checkout_session' %}" method="POST">
+    {% csrf_token %}
+    <button type="submit">Pay ₹500</button>
+</form> {% endcomment %}

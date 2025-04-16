@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'category',
+    'orederApp',
+    'paymentsApp',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +139,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 LOGIN_REDIRECT_URL = "homepage"  # Redirect users after login
 LOGOUT_REDIRECT_URL = "login"  # Redirect users after logout
 LOGIN_URL = "/users/login/"  # Redirects unauthorized users to login page
+
+from decouple import config
+STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
+STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')

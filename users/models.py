@@ -17,7 +17,7 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
-    
+ 
 class CartItem(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     food_item = models.ForeignKey(Food, on_delete=models.CASCADE)
@@ -26,12 +26,20 @@ class CartItem(models.Model):
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     is_ordered = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
+    payment_method = models.CharField(max_length=50, null=True, blank=True)
     
-    @property
-    def total_price(self):
-        return self.quantity * self.food_item.price
-
 
     def __str__(self):
         return f"{self.quantity} {self.food_item.name} by {self.user.username}"
+    
+class WishlistItem(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    food_item = models.ForeignKey(Food, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'food_item')
+
+    def __str__(self):
+        return f"{self.user.username} - {self.food_item.name}"
 

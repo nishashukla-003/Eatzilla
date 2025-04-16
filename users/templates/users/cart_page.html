@@ -1,0 +1,49 @@
+{% extends "category/header_footer.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Your Cart</h2>
+
+    {% if cart_items %}
+    <div class="row">
+        {% for item in cart_items %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                {% if item.food_item.image %}
+                <img src="{{ item.food_item.image.url }}" class="card-img-top" style="height:200px; object-fit:cover;">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.food_item.name }}</h5>
+                    <p class="card-text">Price: ₹{{ item.price }}</p>
+                    <p class="card-text">Total: ₹{{ item.total_price }}</p>
+                    
+                    <form method="POST" action="{% url 'update_cart' item.pk %}">
+                        {% csrf_token %}
+                        <div class="input-group mb-2">
+                            <input type="number" name="quantity" class="form-control" min="1" value="{{ item.quantity }}">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-success" type="submit">Update</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form method="POST" action="{% url 'delete_cart' item.pk %}">
+                        {% csrf_token %}
+                        <button class="btn btn-danger btn-sm" type="submit">Remove</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="text-center mt-4">
+        <h4>Total Amount: ₹{{ cart_items|sum:"total_price" }}</h4>
+        <a href="{% url 'checkout' %}" class="btn btn-primary mt-2">Proceed to Checkout</a>
+    </div>
+    {% else %}
+    <p class="text-center">Your cart is empty. <a href="{% url 'homepage' %}">Go back and add items</a>.</p>
+    {% endif %}
+</div>
+{% endblock %}

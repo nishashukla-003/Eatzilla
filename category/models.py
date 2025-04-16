@@ -20,16 +20,29 @@ class Food(models.Model):
     
     def __str__(self):
         return f"{self.name}"
-        
-
 
 class ToppingsCustomization(models.Model):
     name = models.CharField(max_length=255)
     price = models.DecimalField(max_digits=5, decimal_places=2)
-
-
+    
+    def __str__(self):
+        return f"{self.name} {self.price}"
 class FoodTopping(models.Model):
-
     food = models.ForeignKey(Food, on_delete=models.CASCADE, related_name="toppings")
     topping = models.ForeignKey(ToppingsCustomization, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.food} {self.topping}"
+    
+    
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=150)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} - {self.subject}"
+    
 

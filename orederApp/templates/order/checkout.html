@@ -1,0 +1,128 @@
+{% extends "category/header_footer.html" %}
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded-4 p-4 bg-white">
+                <h2 class="text-center text-success fw-bold mb-4">
+                    <i class="bi bi-cart-check-fill me-2"></i>Place Your Order
+                </h2>
+
+                    <!-- ✅ Address Section -->
+                    {% comment %} <div class="mb-4">
+                        <h5 class="fw-semibold mb-2">
+                            <i class="bi bi-geo-alt-fill text-danger me-1"></i> Delivery Address
+                        </h5>
+                        <div class="bg-light p-3 border-start border-4 border-success rounded-3">
+                            <p class="mb-0">{{ address.0.address|default:"No address found. Please update your profile." }}</p>
+                        </div>
+                    </div> {% endcomment %}
+
+                    <!-- ✅ Order Summary Section -->
+                    <div class="mb-4">
+                        <h5 class="fw-semibold mb-3">
+                            <i class="bi bi-receipt-cutoff text-primary me-1"></i> Order Summary
+                        </h5>
+
+                        <div class="bg-light p-3 rounded-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">Subtotal</span>
+                                <span class="fw-bold text-dark">₹{{ sub_total }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">Discount</span>
+                                <span class="fw-bold text-success">₹{{ discount }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="text-muted">Tax (18%)</span>
+                                <span class="fw-bold text-warning">₹{{ taxes }}</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between">
+                                <span class="fs-5 fw-bold text-primary">Grand Total</span>
+                                <span class="fs-5 fw-bold text-primary">₹{{ grand_total }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ✅ Place Order Button -->
+                    <div class="text-end">
+                        <form id="place-order" action="{% url 'payment-app:create_checkout_session' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-success">Place Order</button>
+                        </form>
+                        
+                      {% comment %} <button type="submit" class="btn btn-lg btn-success rounded-pill shadow-sm px-4">
+                            <i class="bi bi-bag-check-fill me-2"></i>Place Order
+                        </button> {% endcomment %}
+                    </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom CSS for this template (instead of using Bootstrap) -->
+<style>
+    /* Custom container for this page */
+    .container {
+        max-width: 800px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    /* Card styling */
+    .card {
+        border: 0;
+        border-radius: 16px;
+        padding: 30px;
+        background-color: #fff;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Heading styles */
+    h2 {
+        font-size: 28px;
+        color: #28a745;
+    }
+
+    h5 {
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    /* Address section styling */
+    .bg-light {
+        background-color: #f7f7f7 !important;
+    }
+
+    .border-start {
+        border-left: 4px solid #28a745;
+    }
+
+    /* Button styling */
+    .btn-success {
+        background-color: #28a745;
+        border-color: #28a745;
+        margin-top: 26px;
+        margin-left: 37%;
+    }
+
+    /* Adjust the icon */
+    .bi {
+        font-size: 20px;
+    }
+
+    /* Styling for the order summary */
+    .d-flex {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    /* Grand Total Styling */
+    .fs-5 {
+        font-size: 1.25rem;
+    }
+</style>
+
+{% endblock %}

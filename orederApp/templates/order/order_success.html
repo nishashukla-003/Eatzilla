@@ -1,0 +1,9 @@
+{% extends "category/header_footer.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2>🎉 Order Placed Successfully!</h2>
+<p><strong>Order ID:</strong> {{ order.id }}</p>
+<p><strong>Total Amount:</strong> ₹{{ order.grand_total }}</p>
+<p><strong>Payment Method:</strong> {{ order.payment_method }}</p>
+<a href="{% url 'homepage' %}">Back to Home</a>
+{% endblock %}
